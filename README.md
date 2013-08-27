@@ -1,0 +1,2 @@
+sample-cookbooks-php-htaccess
+=============================
