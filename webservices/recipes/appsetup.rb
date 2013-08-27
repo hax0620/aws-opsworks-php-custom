@@ -12,7 +12,7 @@ node[:deploy].each do |app_name, deploy|
 
   template "#{deploy[:deploy_to]}/current/.htaccess" do
     source ".htaccess.erb"
-    mode 0660
+    mode 0644
     group deploy[:group]
 
     if platform?("ubuntu")
