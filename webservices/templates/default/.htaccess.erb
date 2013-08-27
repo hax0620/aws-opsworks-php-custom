@@ -1,0 +1,6 @@
+SetEnv APPLICATION_ENV '<%= @env%>'
+Header set X-Robots-Tag "nofollow"
+Options -Indexes +FollowSymLinks
+<FilesMatch "\.(php|svg|ttf|otf|woff|js|css|json)$">
+	SetOutputFilter DEFLATE
+</FilesMatch>
