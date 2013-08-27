@@ -9,7 +9,7 @@ node[:deploy].each do |app_name, deploy|
     php composer.phar install
     EOH
   end
-  
+
   template "#{deploy[:deploy_to]}/current/.htaccess" do
     source ".htaccess.erb"
     mode 0660
@@ -22,7 +22,7 @@ node[:deploy].each do |app_name, deploy|
     end
 
     variables(
-      :env =>      (deploy[:webservices][:env] rescue nil)
+      :env =>    (node[:webservices][:env] rescue nil)
     )
 
    only_if do
