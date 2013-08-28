@@ -46,7 +46,23 @@ node[:deploy].each do |app_name, deploy|
      File.directory?("#{deploy[:deploy_to]}/current")
    end
   end
+  
+  # create theme.php from template
+  template "#{deploy[:deploy_to]}/current/theme.php" do
+    source "theme.php.erb"
+    mode 0644
+    group deploy[:group]
+    owner web_owner
 
+    variables(
+      :theme => theme[:name]   
+    )
+
+   only_if do
+     File.directory?("#{deploy[:deploy_to]}/current")
+   end
+  end
+  
   # create production .htaccess file
   template "#{deploy[:deploy_to]}/current/.htaccess" do
     source ".htaccess.erb"
