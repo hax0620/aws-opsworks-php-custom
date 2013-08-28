@@ -7,7 +7,7 @@ template "#{etc_dir}/#{conf_apc}" do
   variables(
     :enabled        => (node["php-pecl-apc"]["enabled"]  rescue '1'),
     :shm_size       => (node["php-pecl-apc"]["shm_size"] rescue '128M'),
-    :gc_ttl         => (node["php-pecl-apc"]["gc_ttl"]   rescue '900'),
+    :gc_ttl         => (node["php-pecl-apc"]["gc_ttl"]   rescue '900')
   )
   
   if platform?("ubuntu")
