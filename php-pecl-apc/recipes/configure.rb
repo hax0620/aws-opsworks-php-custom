@@ -1,4 +1,4 @@
-etc_dir = "/etc/php.d/"
+etc_dir = "/etc/php.d"
 conf_apc    = "apc.ini"
 
 template "#{etc_dir}/#{conf_apc}" do
