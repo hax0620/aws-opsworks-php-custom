@@ -10,11 +10,6 @@ node[:deploy].each do |app_name, deploy|
     EOH
   end
 
-  if platform?("ubuntu")
-    web_owner = "www-data"
-  elsif platform?("amazon")   
-    web_owner "apache"
-  end
   
   if node.chef_environment == "QA"
      branch_name = "staging"
@@ -24,7 +19,11 @@ node[:deploy].each do |app_name, deploy|
   
   # create themes folder if not exist
   directory "#{deploy[:deploy_to]}/current/themes" do
-    user web_owner
+    if platform?("ubuntu")
+      owner "www-data"
+    elsif platform?("amazon")   
+      owner "apache"
+    end
     group deploy[:group]
     mode 0775
     action :create
@@ -37,11 +36,11 @@ node[:deploy].each do |app_name, deploy|
   theme[:branch] = branch_name
   
   git "#{deploy[:deploy_to]}/current/themes/#{theme[:name]}" do
-     repository theme[:git]
-     revision theme[:branch]
-     action :sync
-     user web_owner
-     group deploy[:group]
+    repository theme[:git]
+    revision theme[:branch]
+    action :sync
+    owner "apache"
+    group deploy[:group]
    only_if do
      File.directory?("#{deploy[:deploy_to]}/current")
    end
@@ -52,8 +51,8 @@ node[:deploy].each do |app_name, deploy|
     source "theme.php.erb"
     mode 0644
     group deploy[:group]
-    owner web_owner
-
+    owner "apache"
+    
     variables(
       :theme => theme[:name]   
     )
@@ -68,7 +67,11 @@ node[:deploy].each do |app_name, deploy|
     source ".htaccess.erb"
     mode 0644
     group deploy[:group]
-    owner web_owner
+    if platform?("ubuntu")
+      owner "www-data"
+    elsif platform?("amazon")   
+      owner "apache"
+    end
 
     variables(
       :env =>    (node[:webservices][:env] rescue nil)
