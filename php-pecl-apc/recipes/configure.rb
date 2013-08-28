@@ -18,5 +18,5 @@ template "#{etc_dir}/#{conf_apc}" do
     group "apache"
   end
 
-  notifies :reload, resources(:service => "httpd"), :delayed
+  notifies :reload, resources(:service => "apache2"), :delayed
 end
