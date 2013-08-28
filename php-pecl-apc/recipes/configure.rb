@@ -18,8 +18,4 @@ template "#{etc_dir}/#{conf_apc}" do
     group "apache"
   end
 
-  service "apache2" do
-    action :reload
-  end
-
 end
