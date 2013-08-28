@@ -21,5 +21,5 @@ template "#{etc_dir}/#{conf_apc}" do
   service "apache2" do
     action :reload
   end
-  
+
 end
