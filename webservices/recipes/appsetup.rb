@@ -29,17 +29,9 @@ node[:deploy].each do |app_name, deploy|
   theme[:branch] = (node[:webservices][:branch] rescue 'master')
   
   git "#{deploy[:deploy_to]}/current/themes/#{theme[:name]}" do
-    if node.chef_environment == "QA"
-       branch_name = "staging"
-    else
-       branch_name = "master"
-    end
-
     repository theme[:git]
-    revision branch_name
+    revision (theme[:branch] rescue 'master')
     action :sync
-    owner "apache"
-    group deploy[:group]
    only_if do
      File.directory?("#{deploy[:deploy_to]}/current")
    end
