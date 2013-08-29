@@ -30,7 +30,7 @@ node[:deploy].each do |app_name, deploy|
   
   git "#{deploy[:deploy_to]}/current/themes/#{theme[:name]}" do
     repository theme[:git]
-    revision (theme[:branch] rescue 'master')
+    revision theme[:branch]
     action :sync
    only_if do
      File.directory?("#{deploy[:deploy_to]}/current")
