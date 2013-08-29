@@ -25,11 +25,11 @@ node[:deploy].each do |app_name, deploy|
   # Custom theme will be pulled and synced from remote repository
   theme = {}
   theme[:name] = (node[:webservices][:theme] rescue 'one')
-  theme[:git]  = (node[:webservices][:git] rescue 'git@github.com:jpaljasma/test-opsworks-chef-git-deploy.git')
+  theme[:git]  = (node[:webservices][:git] rescue 'https://github.com/jpaljasma/test-opsworks-chef-git-deploy.git')
   theme[:branch] = (node[:webservices][:branch] rescue 'master')
   
   git "#{deploy[:deploy_to]}/current/themes/one" do
-    repository 'git@github.com:jpaljasma/test-opsworks-chef-git-deploy.git'
+    repository 'https://github.com/jpaljasma/test-opsworks-chef-git-deploy.git'
     revision 'master'
     action :sync
   end
