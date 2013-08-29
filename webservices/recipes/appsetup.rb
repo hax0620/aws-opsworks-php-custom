@@ -28,13 +28,10 @@ node[:deploy].each do |app_name, deploy|
   theme[:git]  = (node[:webservices][:git] rescue 'git@github.com:jpaljasma/test-opsworks-chef-git-deploy.git')
   theme[:branch] = (node[:webservices][:branch] rescue 'master')
   
-  git "#{deploy[:deploy_to]}/current/themes/#{theme[:name]}" do
-    repository theme[:git]
-    revision theme[:branch]
+  git "#{deploy[:deploy_to]}/current/themes/one" do
+    repository 'git@github.com:jpaljasma/test-opsworks-chef-git-deploy.git'
+    revision 'master'
     action :sync
-   only_if do
-     File.directory?("#{deploy[:deploy_to]}/current")
-   end
   end
   
   # create theme.php from template
