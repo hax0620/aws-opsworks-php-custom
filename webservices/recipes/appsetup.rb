@@ -28,14 +28,14 @@ node[:deploy].each do |app_name, deploy|
   theme[:git]  = (node[:webservices][:git] rescue 'https://github.com/jpaljasma/test-opsworks-chef-git-deploy.git')
   theme[:branch] = (node[:webservices][:branch] rescue 'master')
   
-  git "#{deploy[:deploy_to]}/current/themes/one" do
+  git "#{deploy[:deploy_to]}/current/themes/one" do |theme|
     repository 'https://github.com/jpaljasma/test-opsworks-chef-git-deploy.git'
     revision 'master'
     action :sync
   end
   
   # create theme.php from template
-  template "#{deploy[:deploy_to]}/current/theme.php" do
+  template "#{deploy[:deploy_to]}/current/theme.php" do |theme|
     source "theme.php.erb"
     mode 0644
     group deploy[:group]
