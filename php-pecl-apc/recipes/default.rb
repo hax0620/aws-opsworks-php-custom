@@ -1,4 +1,3 @@
-include_recipe "apache2"
 include_recipe "apache2::service"
 
 packages = []
