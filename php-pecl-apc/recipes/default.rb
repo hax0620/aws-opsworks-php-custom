@@ -24,6 +24,12 @@ execute "install pecl geoip" do
   action :run
 end
 
+bash "enable_geoip_module_for_php" do
+  code <<-EOH
+    printf 'extension=geoip.so\n' | tee /etc/php.d/geoip.ini
+  EOH
+end
+
 include_recipe "php-pecl-apc::configure"
 
 service "apache2" do
