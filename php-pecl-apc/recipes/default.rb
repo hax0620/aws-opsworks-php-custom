@@ -24,8 +24,9 @@ bash "install_pecl_geoip" do
   user "root"
   code <<-EOH
     pecl install geoip
+    exit 0
   EOH
-  returns [0,1]
+  returns [0,'1',1]
 end
 
 bash "enable_geoip_module_for_php" do
