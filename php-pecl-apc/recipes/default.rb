@@ -20,9 +20,11 @@ execute "install geoip-devel" do
 end
 
 # try to install geoip, pecl may return 1 if already installed
-execute "install pecl geoip" do
-  command "sudo pecl install geoip"
-  action :run
+bash "install_pecl_geoip" do
+  user "root"
+  code <<-EOH
+    pecl install geoip
+  EOH
   returns [0,1]
 end
 
