@@ -19,9 +19,11 @@ execute "install geoip-devel" do
   action :run
 end
 
+# try to install geoip, pecl may return 1 if already installed
 execute "install pecl geoip" do
   command "sudo pecl install geoip"
   action :run
+  returns [0,1]
 end
 
 bash "enable_geoip_module_for_php" do
